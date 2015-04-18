@@ -22,6 +22,9 @@ var SlideListView = Backbone.View.extend({
 		if (global.songs.length)
 			nextSongSlideIndex = global.songs[nextSongIndex].slide;
 
+		// Split the slides into sections. A section can be either a song, or
+		// a block of slides between songs. The `global.song` index of the
+		// starting indices of songs is particularly useful here.
 		for (i = 0; i < len; i++) {
 			if (i === nextSongSlideIndex) {
 				currentMode = EpicFileReader.type.SONG;

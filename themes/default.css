@@ -2,11 +2,31 @@
 	padding: 2vw 4vw;
 }
 
-.song pre, p, li, th, td {
+* {
+	text-shadow: 0 0 .5vw #000, 0 0 .5vw #000, 0 0 .5vw #000, 0 0 .5vw #000;
+}
+
+header {
+	margin: 5vw 0;
+
 	color: #fff;
 
 	font-family: 'News Gothic MT';
-	font-size: 6vw;
+	font-size: 7vw;
+}
+
+.song pre, p, li, th, td {
+	color: #fff;
+}
+
+.song pre {
+	font-family: 'News Gothic MT';
+	font-size: 5vw;
+}
+
+div, span, p, li, th, td {
+	font-family: 'News Gothic MT';
+	font-size: 4vw;
 }
 
 pre {

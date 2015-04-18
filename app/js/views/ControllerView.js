@@ -10,7 +10,6 @@ var ControllerView = Backbone.View.extend({
 	render: function () {
 		this.slideList = new SlideListView();
 		this.listenTo(this.slideList, 'select', this.goSlide);
-		// TODO
 	},
 
 	events: {
@@ -18,7 +17,9 @@ var ControllerView = Backbone.View.extend({
 		'click #prev': 'goPrevious',
 		'click #next': 'goNext',
 		'click #open': 'showFileDialog',
-		'change #filedialog': 'chooseFile'
+		'change #filedialog': 'chooseFile',
+		'click #debug-controller': 'showMyDevTools',
+		'click #debug-presentation': 'showPresentationDevTools'
 	},
 
 	openFile: function (filename) {
@@ -82,7 +83,7 @@ var ControllerView = Backbone.View.extend({
 	},
 
 	goSlide: function (index) {
-		if (index < 0 || index >= global.slides.length)
+		if (!global.slides || index < 0 || index >= global.slides.length)
 			return;
 
 		this.slideList.unhighlight(this.slideIndex);
@@ -113,5 +114,13 @@ var ControllerView = Backbone.View.extend({
 
 	chooseFile: function (e) {
 		this.openFile(this.$('#filedialog').val());
+	},
+
+	showMyDevTools: function () {
+		gui.Window.get().showDevTools();
+	},
+
+	showPresentationDevTools: function () {
+		presentation.showDevTools();
 	}
 })

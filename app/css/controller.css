@@ -119,24 +119,21 @@ header #filedialog {
 }
 
 #slides section > div {
+	position: relative;
 	height: 120px;
 	width: 160px;
 
-	margin: 8px;
-	padding: 8px;
+	margin: 8px 8px 24px 8px;
 	border: 1px solid #333;
 
-	background: #111;
 	box-shadow: 0px 2px 4px #181818;
-
-	font-size: 11px;
 
 	cursor: pointer;
 
 	transition: 200ms ease-out border-color;
 }
 
-#slides section > div.highlighted {
+#slides section > .highlighted {
 	border: 1px solid #2980b9;
 
 	transition: none;
@@ -146,4 +143,35 @@ header #filedialog {
 	line-height: 140%;
 	font-family: inherit;
 	white-space: pre-wrap;
+}
+
+#slides section .background {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: -1;
+}
+
+#slides section .click-intercept {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+#slides section .meta {
+	display: flex;
+	margin-top: 4px;
+	font-size: 12px;
+	color: #aaa;
+	overflow: hidden;
+}
+
+#slides .title {
+	flex: 1 1;
+	overflow: ellipsis;
+	text-align: right;
 }

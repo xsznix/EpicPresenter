@@ -10,5 +10,3 @@ Markdown = require('markdown');
 // Node GUI APIs
 var gui = require('nw.gui');
 
-// Show inspector (debug)
-gui.Window.get().showDevTools();

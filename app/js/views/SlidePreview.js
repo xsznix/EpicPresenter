@@ -2,14 +2,12 @@
 
 var SlidePreview = Backbone.View.extend({
 	model: SlideModel,
-	template: _.template('<div>\
-		<div class="background"></div>\
-		<div class="foreground"></div>\
+	template: _.template('<iframe class="content" width="160" height="120" frameBorder="0"></iframe>\
+		<div class="click-intercept"></div>\
 		<div class="meta">\
-			<div class="index"></div>\
-			<div class="title"></div>\
-		</div>\
-	</div>'),
+			<div class="index"><%= index %></div>\
+			<div class="title"><%= title %></div>\
+		</div>'),
 
 	initialize: function (options) {
 		this.index = options.index;
@@ -17,13 +15,31 @@ var SlidePreview = Backbone.View.extend({
 	},
 
 	events: {
-		'click': 'selectMe'
+		'click .click-intercept': 'selectMe'
 	},
 
 	render: function () {
-		// TODO
-		this.$el.empty().append(this.template());
-		this.$('.foreground').html(this.model.get('content'));
+		this.$el.empty().append(this.template({
+			index: this.index + 1,
+			title: this.model.get('title')
+		}))
+
+		// Render the contents inside a SlideView, and then put the resulting
+		// HTML in an iframe so that the viewport units become relative to the
+		// iframe instead of the presenter window.
+		var slide = new SlideView({
+			model: this.model,
+			animate: false
+		})
+
+		// The background view doesn't need any viewport size magic, so just add
+		// it directly.
+		var background = new BackgroundView({
+			model: global.assets.getBackground(this.model.get('background')),
+			animate: false
+		})
+		background.$el.prependTo(this.$el);
+		this.$('.content').attr('srcdoc', slide.el.shadowRoot.innerHTML);
 	},
 
 	selectMe: function () {

@@ -36,11 +36,13 @@ var BackgroundView = Backbone.View.extend({
 
 	renderImage: function () {
 		var escapedUrl = this.escapeImageUrl(this.model.get('url'));
-		this.$el.css('backgroundImage', 'url("' + escapedUrl + '") cover');
+		this.$el.css('backgroundImage', 'url("' + escapedUrl + '")');
 
 		var args = this.model.get('args');
 		if (args.indexOf('contain') !== -1)
 			this.$el.css('backgroundSize', 'contain');
+		else
+			this.$el.css('backgroundSize', 'cover');
 	},
 
 	renderVideo: function () {
@@ -52,5 +54,9 @@ var BackgroundView = Backbone.View.extend({
 			this.$el.stop().fadeIn(Const.FADE_TIME);
 		else
 			this.$el.show();
+	},
+
+	escapeImageUrl: function (url) {
+		return url.replace('"', '\\"');
 	}
 })
