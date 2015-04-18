@@ -2,10 +2,27 @@
 <html>
 <head>
 	<title>EpicPresenter Presentation</title>
+	<link rel="stylesheet" href="css/presentation.css">
 </head>
 <body>
-	<main></main>
+	<main>
+		<div id="background"></div>
+		<div id="foreground"></div>
+	</main>
+	<script src="../node_modules/jquery/dist/jquery.js"></script>
+	<script src="../node_modules/underscore/underscore.js"></script>
+	<script src="../node_modules/backbone/backbone.js"></script>
+	<script src="js/const.js"></script>
 	<script src="js/init.js"></script>
-	<script src="js/init-presenter.js"></script>
+	<script src="js/init-presentation.js"></script>
+	<script src="js/file/reader.js"></script>
+	<script src="js/models/SlideModel.js"></script>
+	<script src="js/models/BackgroundModel.js"></script>
+	<script src="js/views/SlideView.js"></script>
+	<script src="js/views/BackgroundView.js"></script>
+	<script src="js/views/PresentationView.js"></script>
+	<script>
+	var app = new PresentationView();
+	</script>
 </body>
 </html>

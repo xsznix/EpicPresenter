@@ -13,9 +13,13 @@ var EpicFileReader = (function (EpicFileReader, undefined) {
 		VIDEO: 2
 	}
 
-	/*
-	 * Read the input string as a presentation.
-	 */
+	// Load from file
+	EpicFileReader.load = function (filename) {
+		var file = fs.readFileSync(filename, {encoding: 'utf8'});
+		return EpicFileReader.parse(file);
+	}
+
+	// Load from string
 	EpicFileReader.parse = function (input) {
 		var lines = input.split('\n');
 
@@ -62,6 +66,7 @@ var EpicFileReader = (function (EpicFileReader, undefined) {
 	 *         string in slides mode, parsed through Markdown
 	 *         song slide array in song mode
 	 *     background: number
+	 *     theme: number
 	 *
 	 * Within a song, each song slide contains the following properties:
 	 *     label: string
@@ -74,7 +79,7 @@ var EpicFileReader = (function (EpicFileReader, undefined) {
 		// Section-scoped directives come before the slide title. Process all
 		// section-scoped directives until we find the slide title.
 		for (;;) {
-			if (parseState.nextLineIndex === lines.length)
+			if (parseState.nextLineIndex >= lines.length)
 				return;
 
 			nextLine = lines[parseState.nextLineIndex++];
@@ -159,7 +164,7 @@ var EpicFileReader = (function (EpicFileReader, undefined) {
 	function parseAllSlideDirectives (lines, file, slide, parseState) {
 		var nextLine;
 		for (;;) {
-			if (parseState.nextLineIndex === lines.length)
+			if (parseState.nextLineIndex >= lines.length)
 				return;
 
 			nextLine = lines[parseState.nextLineIndex++];
@@ -244,7 +249,7 @@ var EpicFileReader = (function (EpicFileReader, undefined) {
 			var contentLines = [];
 
 			for (;;) {
-				if (parseState.nextLineIndex === lines.length)
+				if (parseState.nextLineIndex >= lines.length)
 					return;
 
 				nextLine = lines[parseState.nextLineIndex++];
@@ -260,13 +265,16 @@ var EpicFileReader = (function (EpicFileReader, undefined) {
 						parseState.nextLineIndex--;
 						return;
 					}
+				} else if (nextLine[0] === '%') {
+					parseState.nextLineIndex--;
+					return;
 				}
 			}
 
-			parseAllSlideDirectives(lines, file, slide, parseState);
+			skipBlankLines(lines, parseState);
 
 			for (;;) {
-				if (parseState.nextLineIndex === lines.length)
+				if (parseState.nextLineIndex >= lines.length)
 					break;
 
 				nextLine = lines[parseState.nextLineIndex++];
@@ -277,15 +285,13 @@ var EpicFileReader = (function (EpicFileReader, undefined) {
 					break;
 				}
 
-				skipBlankLines(lines, parseState);
-
 				if (nextLine[0] === '\\')
 					contentLines.push(nextLine.substring(1));
 				else
 					contentLines.push(nextLine);
 			}
 
-			currentSlide.content = contentLines.join('\n');
+			currentSlide.content = contentLines.join('\n').trim();
 			slide.content.push(currentSlide);
 		}
 	}
@@ -294,8 +300,10 @@ var EpicFileReader = (function (EpicFileReader, undefined) {
 		slide.content = '';
 		var contentLines = [], content, nextLine;
 
+		skipBlankLines(lines, parseState);
+
 		for (;;) {
-			if (parseState.nextLineIndex === lines.length) {
+			if (parseState.nextLineIndex >= lines.length) {
 				content = contentLines.join('\n');
 				slide.content = Markdown.parse(content);
 				return;
@@ -310,8 +318,6 @@ var EpicFileReader = (function (EpicFileReader, undefined) {
 				return;
 			}
 
-			skipBlankLines(lines, parseState);
-
 			if (nextLine[0] === '\\')
 				contentLines.push(nextLine.substring(1));
 			else
@@ -320,12 +326,7 @@ var EpicFileReader = (function (EpicFileReader, undefined) {
 	}
 
 	function skipBlankLines (lines, parseState) {
-		for (;;) {
-			if (lines[parseState.nextLineIndex] !== '')
-				return;
-			else
-				parseState.nextLineIndex++;
-		}
+		for (; parseState.nextLineIndex < lines.length && lines[parseState.nextLineIndex].trim() === ''; parseState.nextLineIndex++);
 	}
 
 	return EpicFileReader;

@@ -1,0 +1,15 @@
+:host {
+	padding: 2vw 4vw;
+}
+
+.song pre, p, li, th, td {
+	color: #fff;
+
+	font-family: 'News Gothic MT';
+	font-size: 6vw;
+}
+
+pre {
+	line-height: 140%;
+	white-space: pre-wrap;
+}

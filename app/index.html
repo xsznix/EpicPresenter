@@ -2,12 +2,57 @@
 <html>
 <head>
 	<title>EpicPresenter</title>
+	<link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.css">
+	<link rel="stylesheet" href="css/controller.css">
 </head>
 <body>
-	<main></main>
+	<main>
+		<header>
+			<h1>Epic Presenter</h1>
+			<input type="file" id="filedialog" nwworkingdir=".">
+			<button id="open">Open file&hellip;</button>
+			<button id="exit">End presentation</button>
+		</header>
+		<div id="content">
+			<div id="slides"></div>
+			<div id="sidebar">
+				<iframe id="preview" src="presentation.html" width="480" height="360" frameBorder="0"></iframe>
+				<div id="clocks"></div>
+				<div id="controls">
+					<button id="blank">
+						<i class="fa fa-square"></i><u>B</u>lank
+					</button>
+					<button id="prev">
+						<i class="fa fa-arrow-left"></i><u>P</u>revious
+					</button>
+					<button id="next">
+						<i class="fa fa-arrow-right"></i><u>N</u>ext
+					</button>
+				</div>
+			</div>
+		</div>
+	</main>
+	<script src="../node_modules/jquery/dist/jquery.js"></script>
+	<script src="../node_modules/underscore/underscore.js"></script>
+	<script src="../node_modules/backbone/backbone.js"></script>
 	<script src="js/const.js"></script>
 	<script src="js/init.js"></script>
 	<script src="js/init-controller.js"></script>
+	<script src="js/file/args.js"></script>
 	<script src="js/file/reader.js"></script>
+	<script src="js/assetstore.js"></script>
+	<script src="js/models/SlideModel.js"></script>
+	<script src="js/models/SlideListSection.js"></script>
+	<script src="js/models/BackgroundModel.js"></script>
+	<script src="js/views/SlideView.js"></script>
+	<script src="js/views/SlidePreview.js"></script>
+	<script src="js/views/BackgroundView.js"></script>
+	<script src="js/views/SlideListSectionView.js"></script>
+	<script src="js/views/SlideListView.js"></script>
+	<script src="js/views/PresentationView.js"></script>
+	<script src="js/views/ControllerView.js"></script>
+	<script>
+	new ControllerView();
+	</script>
 </body>
 </html>

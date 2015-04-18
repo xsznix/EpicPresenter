@@ -1,10 +1,10 @@
 'use strict';
 
-// Third party libraries
-var $, jQuery, Backbone, _, Markdown;
-$ = jQuery = require('jquery').jQuery;
-Backbone = require('backbone');
-_ = require('underscore')._;
+// Libraries
+var fs, path, util, Markdown;
+fs = require('fs');
+path = require('path');
+util = require('util');
 Markdown = require('markdown');
 
 // Node GUI APIs

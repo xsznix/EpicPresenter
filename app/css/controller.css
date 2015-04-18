@@ -1,0 +1,149 @@
+html, body {
+	padding: 0;
+	overflow: hidden;
+	-webkit-user-select: none;
+
+	font-family: Helvetica, Arial, sans-serif;
+
+	background: #222;
+	color: #fff;
+}
+
+button {
+	border: none;
+	outline: none;
+	background: none;
+	font-family: inherit;
+	font-size: inherit;
+	color: inherit;
+	cursor: pointer;
+}
+
+main {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+header {
+	display: flex;
+	height: 48px;
+	padding: 0 16px;
+
+	background: #333;
+	color: #aaa;
+}
+
+header h1 {
+	margin-right: 48px;
+	font-size: 24px;
+	font-weight: 300;
+}
+
+header button {
+	padding: 6px 12px 0 12px;
+
+	font-weight: 300;
+}
+
+header button:hover {
+	background: rgba(255,255,255,0.05);
+}
+
+header #filedialog {
+	display: none;
+}
+
+#content {
+	display: flex;
+	flex: 1 1;
+}
+
+#slides {
+	flex: 1 1;
+
+	overflow-y: scroll;
+}
+
+#sidebar {
+	display: flex;
+	flex-direction: column;
+	width: 480px;
+}
+
+#controls {
+	display: flex;
+	justify-content: center;
+
+	color: #888;
+}
+
+#controls button {
+	width: 80px;
+	padding: 16px 0;
+
+	text-align: center;
+	font-size: 14px;
+}
+
+#controls button:hover {
+	background: rgba(255,255,255,0.05);
+}
+
+#controls button i {
+	display: block;
+	margin-bottom: 6px;
+
+	font-size: 32px;
+}
+
+#slides {
+	box-shadow: inset -2px 2px 2px #181818;
+}
+
+#slides section {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+#slides > div > h2 {
+	margin-bottom: 8px;
+	padding-left: 24px;
+	padding-bottom: 8px;
+	border-bottom: 2px solid #444;
+	font-weight: 300;
+}
+
+#slides section > div {
+	height: 120px;
+	width: 160px;
+
+	margin: 8px;
+	padding: 8px;
+	border: 1px solid #333;
+
+	background: #111;
+	box-shadow: 0px 2px 4px #181818;
+
+	font-size: 11px;
+
+	cursor: pointer;
+
+	transition: 200ms ease-out border-color;
+}
+
+#slides section > div.highlighted {
+	border: 1px solid #2980b9;
+
+	transition: none;
+}
+
+#slides section > div pre {
+	line-height: 140%;
+	font-family: inherit;
+	white-space: pre-wrap;
+}
