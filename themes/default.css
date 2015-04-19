@@ -33,3 +33,7 @@ pre {
 	line-height: 140%;
 	white-space: pre-wrap;
 }
+
+ul, ol {
+	-webkit-padding-start: 7vw;
+}

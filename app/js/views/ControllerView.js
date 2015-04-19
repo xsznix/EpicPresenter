@@ -4,6 +4,7 @@ var ControllerView = Backbone.View.extend({
 	el: 'main',
 
 	initialize: function () {
+		$(document).keydown(this.handleKey.bind(this));
 		this.render();
 	},
 
@@ -122,5 +123,29 @@ var ControllerView = Backbone.View.extend({
 
 	showPresentationDevTools: function () {
 		presentation.showDevTools();
+	},
+
+	// Global keyboard shortcuts:
+	// up/left/p: previous slide
+	// down/right/n: next slide
+	// b: blank
+	handleKey: function (e) {
+		switch (e.keyCode) {
+			case 37:
+			case 38:
+			case 80:
+			this.goPrevious();
+			break;
+
+			case 39:
+			case 40:
+			case 78:
+			this.goNext();
+			break;
+
+			case 66:
+			this.goBlank();
+			break;
+		}
 	}
 })

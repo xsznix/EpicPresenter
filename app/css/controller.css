@@ -175,3 +175,16 @@ header #filedialog {
 	overflow: ellipsis;
 	text-align: right;
 }
+
+.background.slide {
+	overflow: hidden;
+}
+
+.background.slide video {
+	position: absolute;
+	bottom: 50%;
+	right: 50%;
+	transform: translateX(50%) translateY(50%);
+	min-width: 100%;
+	min-height: 100%;
+}
