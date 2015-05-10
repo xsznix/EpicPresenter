@@ -16,17 +16,19 @@ var EpicFileReader = (function (EpicFileReader, undefined) {
 	// Load from file
 	EpicFileReader.load = function (filename) {
 		var file = fs.readFileSync(filename, {encoding: 'utf8'});
-		return EpicFileReader.parse(file);
+		return EpicFileReader.parse(file, filename);
 	}
 
 	// Load from string
-	EpicFileReader.parse = function (input) {
+	EpicFileReader.parse = function (input, filename) {
 		var lines = input.split('\n');
+
+		var dir = path.dirname(filename);
 
 		// The output file contains backgrounds, songs, and slides
 		var file = {
 			backgrounds: [ Const.INITIAL_BACKGROUND ],
-			themes: [ Const.INITIAL_THEME ],
+			themes: [ ArgumentParser.getNormalizedPath(dir, Const.INITIAL_THEME) ],
 			slides: []
 		}
 
@@ -39,11 +41,10 @@ var EpicFileReader = (function (EpicFileReader, undefined) {
 			// slide-scoped theme directive is not found in the slide
 			// definition.
 			themeInUse: 0,
-			// The index of the current song, if the parser is in song mode.
-			// If the parser is not currently parsing a song, this will be -1.
-			// If the parser is expecting a song but hasn't found it yet, this
-			// will be -2.
+			// SONG (0) or SLIDE (1).
 			mode: Const.INITIAL_MODE,
+			// the directory we're in
+			dir: dir,
 			errors: []
 		}
 
@@ -154,6 +155,10 @@ var EpicFileReader = (function (EpicFileReader, undefined) {
 			case 'background':
 			parseBackgroundDirective(args, file, parseState);
 			break;
+
+			case 'include':
+			parseIncludeDirective(args, file, parseState);
+			break;
 			
 			default:
 			parseState.errors.push([parseState.nextLineIndex,
@@ -213,6 +218,7 @@ var EpicFileReader = (function (EpicFileReader, undefined) {
 	}
 
 	function parseThemeDirective (args, file, parseState, slide) {
+		args = ArgumentParser.getNormalizedPath(parseState.dir, args);
 		var themeIndex = file.themes.indexOf(args);
 		if (themeIndex === -1) {
 			file.themes.push(args);
@@ -225,7 +231,9 @@ var EpicFileReader = (function (EpicFileReader, undefined) {
 	}
 
 	function parseBackgroundDirective (args, file, parseState, slide) {
-		var backgroundIndex = file.backgrounds.indexOf(args);
+		args = ArgumentParser.parse(args);
+		args[1] = ArgumentParser.getNormalizedPath(parseState.dir, args[1]);
+		var backgroundIndex = getBackgroundIndex(file, args);
 		if (backgroundIndex === -1) {
 			file.backgrounds.push(args);
 			if (slide) slide.background = file.backgrounds.length - 1;
@@ -236,8 +244,52 @@ var EpicFileReader = (function (EpicFileReader, undefined) {
 		}
 	}
 
-	function parseLayoutDirective (args, file) {
+	function parseLayoutDirective (args, file, parseState) {
 		// TODO
+	}
+
+	function parseIncludeDirective (args, file, parseState) {
+		// Read in file
+		var inFilename = ArgumentParser.getNormalizedPath(parseState.dir, args);
+		var parsedFile = EpicFileReader.load(inFilename);
+
+		// Merge theme arrays
+		var themeMapping = {}; // Replace each slide in the child file that uses
+		                       // the theme at index `key` to use the theme at
+		                       // index `value`, representing the position of
+		                       // the same theme in the merged theme array.
+		parsedFile.themes.forEach(function (theme, i) {
+			// If the theme in the child file is not in the theme array of the
+			// parent file, add it
+			var idx = file.themes.indexOf(theme);
+			if (idx === -1) {
+				idx = file.themes.length;
+				file.themes[idx] = theme;
+			}
+
+			// Update references later...
+			themeMapping[i] = idx;
+		})
+
+		// Do the same for background arrays
+		var backgroundMapping = {};
+		parsedFile.backgrounds.forEach(function (bg, i) {
+			var idx = getBackgroundIndex(file, bg);
+			if (idx === -1) {
+				idx = file.backgrounds.length;
+				file.backgrounds[idx] = bg;
+			}
+
+			backgroundMapping[i] = idx;
+		})
+
+		// Update theme and background references and push slides to parent
+		// slide array
+		parsedFile.slides.forEach(function (slide) {
+			slide.theme = themeMapping[slide.theme];
+			slide.background = backgroundMapping[slide.background];
+			file.slides.push(slide);
+		})
 	}
 
 	function parseSongContent (lines, slide, parseState) {
@@ -323,6 +375,18 @@ var EpicFileReader = (function (EpicFileReader, undefined) {
 			else
 				contentLines.push(nextLine);
 		}
+	}
+
+	function getBackgroundIndex(file, background) {
+		loop: for (var i = 0; i < file.backgrounds.length; i++) {
+			var bg = file.backgrounds[i];
+			if (bg.length !== background.length) continue;
+			for (var j = 0; j < bg.length; j++)
+				if (bg[i] !== background[j]) continue loop;
+			return i;
+		}
+
+		return -1;
 	}
 
 	function skipBlankLines (lines, parseState) {

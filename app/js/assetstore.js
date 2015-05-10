@@ -20,13 +20,11 @@ var AssetStore = (function () {
 	}
 
 	function readTheme (url, index) {
-		var file = fs.readFileSync(ArgumentParser.getNormalizedPath(this.dir, url),
-			{ encoding: 'utf-8' });
+		var file = fs.readFileSync(url, { encoding: 'utf-8' });
 		this.themes[index] = file;
 	}
 
-	function readBackground (str, index) {
-		var args = ArgumentParser.parse(str);
+	function readBackground (args, index) {
 		switch (args[0]) {
 			case 'color':
 			this.backgrounds[index] = new BackgroundModel({
@@ -37,14 +35,14 @@ var AssetStore = (function () {
 			case 'image':
 			this.backgrounds[index] = new BackgroundModel({
 				type: 'image',
-				url: ArgumentParser.getNormalizedPath(this.dir, args[1]),
+				url: args[1],
 				args: args.slice(2) });
 			break;
 
 			case 'video':
 			this.backgrounds[index] = new BackgroundModel({
 				type: 'video',
-				url: ArgumentParser.getNormalizedPath(this.dir, args[1]),
+				url: args[1],
 				args: args.slice(2) });
 			break;
 

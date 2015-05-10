@@ -18,6 +18,7 @@ var ControllerView = Backbone.View.extend({
 		'click #prev': 'goPrevious',
 		'click #next': 'goNext',
 		'click #open': 'showFileDialog',
+		'click #exit': 'exit',
 		'change #filedialog': 'chooseFile',
 		'click #debug-controller': 'showMyDevTools',
 		'click #debug-presentation': 'showPresentationDevTools'
@@ -147,5 +148,9 @@ var ControllerView = Backbone.View.extend({
 			this.goBlank();
 			break;
 		}
+	},
+
+	exit: function () {
+		process.exit();
 	}
 })
