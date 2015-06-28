@@ -232,7 +232,8 @@ var EpicFileReader = (function (EpicFileReader, undefined) {
 
 	function parseBackgroundDirective (args, file, parseState, slide) {
 		args = ArgumentParser.parse(args);
-		args[1] = ArgumentParser.getNormalizedPath(parseState.dir, args[1]);
+		if (args[0] !== 'color')
+			args[1] = ArgumentParser.getNormalizedPath(parseState.dir, args[1]);
 		var backgroundIndex = getBackgroundIndex(file, args);
 		if (backgroundIndex === -1) {
 			file.backgrounds.push(args);
@@ -244,8 +245,20 @@ var EpicFileReader = (function (EpicFileReader, undefined) {
 		}
 	}
 
-	function parseLayoutDirective (args, file, parseState) {
-		// TODO
+	function parseLayoutDirective (args, file, parseState, slide) {
+		args = ArgumentParser.parse(args);
+		args[1] = ArgumentParser.getNormalizedPath(parseState.dir, args[1]);
+		switch (args[0]) {
+			case 'image':
+			slide.layout = EpicFileReader.layout.IMAGE;
+			slide.media = args[1];
+			break;
+
+			case 'video':
+			slide.layout = EpicFileReader.layout.VIDEO;
+			slide.media = args[1];
+			break;
+		}
 	}
 
 	function parseIncludeDirective (args, file, parseState) {

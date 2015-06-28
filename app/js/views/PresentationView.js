@@ -22,7 +22,7 @@ var PresentationView = Backbone.View.extend({
 			model: model,
 			animate: this.isRoot });
 		this.currentBackground.$el.appendTo(this.$bg);
-		this.currentBackground.fadeIn(Const.FADE_TIME);
+		this.currentBackground.fadeIn();
 		
 		if (oldBackground)
 			setTimeout(function () { oldBackground.remove() }, Const.FADE_TIME);

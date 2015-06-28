@@ -23,7 +23,19 @@ var SlideView = Backbone.View.extend({
 			header.innerHTML = this.model.get('title');
 
 		var content = document.createElement('section');
-		content.innerHTML = this.model.get('content');
+
+		switch (this.model.get('layout')) {
+			case EpicFileReader.layout.TEXT:
+			this.renderText(content);
+			break;
+
+			case EpicFileReader.layout.IMAGE:
+			this.renderImage(content);
+			break;
+
+			case EpicFileReader.layout.VIDEO:
+			this.renderVideo(content);
+		}
 
 		if (this.model.get('type') === EpicFileReader.type.SONG)
 			content.classList.add('song');
@@ -34,26 +46,106 @@ var SlideView = Backbone.View.extend({
 			this.$el.show();
 	},
 
+	renderText: function (content) {
+		content.innerHTML = this.model.get('content');
+	},
+
+	renderImage: function (content) {
+		var mediaElement = document.createElement('div');
+		mediaElement.style.backgroundImage = 'url(' + this.model.get('media') + ')';
+		mediaElement.className = 'media image';
+		content.appendChild(mediaElement);
+		var caption = this.model.get('content'), captionElement;
+		if (caption.length) {
+			captionElement = document.createElement('div');
+			captionElement.className = 'caption';
+			captionElement.innerHTML = caption;
+			content.appendChild(captionElement);
+		} else {
+			mediaElement.classList.add('nocaption');
+		}
+	},
+
+	renderVideo: function (content) {
+		this.boundResizeVideo = this.resizeVideo.bind(this);
+		var mediaElement = document.createElement('video');
+		mediaElement.className = 'media';
+		mediaElement.setAttribute('src', this.model.get('media'));
+		mediaElement.addEventListener('loadedmetadata', this.boundResizeVideo);
+
+		if (this.animate) {
+			window.addEventListener('resize', this.boundResizeVideo);
+		}
+
+		this.video = mediaElement;
+
+		var video = this.video;
+		setTimeout(function () {
+			video.play();
+		}, Const.FADE_TIME);
+
+		content.appendChild(mediaElement);
+	},
+
 	fadeIn: function () {
-		if (this.animate)
-			this.$el.stop().fadeIn(Const.FADE_TIME);
-		else
+		if (this.animate) {
+			this.$el.stop().fadeIn({
+				duration: Const.FADE_TIME,
+				easing: Const.FADE_IN_EASE
+			});
+
+			if (this.paused)
+				this.video.play();
+		} else
 			this.$el.show();
 	},
 
 	fadeOut: function () {
-		if (this.animate)
-			this.$el.stop().fadeOut(Const.FADE_TIME);
-		else
+		if (this.animate) {
+			this.$el.stop().fadeOut({
+				duration: Const.FADE_TIME,
+				easing: Const.FADE_OUT_EASE
+			});
+
+			if (this.video) {
+				this.paused = true;
+				this.video.pause();
+			}
+		} else
 			this.$el.hide();
 	},
 
 	fadeOutAndRemove: function () {
 		if (this.animate)
-			this.$el.stop().fadeOut(Const.FADE_TIME, function () {
-				this.remove();
+			this.$el.stop().fadeOut({
+				duration: Const.FADE_TIME,
+				easing: Const.FADE_OUT_EASE,
+				complete: function () {
+					this.remove();
+				}
 			});
 		else
 			this.remove();
-	}
+	},
+
+	remove: function () {
+		if (this.video) {
+			this.video.removeEventListener('loadedmetadata', this.boundResizeVideo);
+			window.removeEventListener('resize', this.boundResizeVideo);
+		}
+		Backbone.View.prototype.remove.call(this)
+	},
+
+	resizeVideo: function () {
+		var h = this.$el.height(), w = this.$el.width();
+		var clientAspectRatio = h / w;
+		var videoAspectRatio = this.video.videoHeight / this.video.videoWidth;
+
+		if (videoAspectRatio > clientAspectRatio) {
+			this.video.setAttribute('height', h);
+			this.video.removeAttribute('width');
+		} else {
+			this.video.setAttribute('width', w);
+			this.video.removeAttribute('height');
+		}}
 })

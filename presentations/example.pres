@@ -1,0 +1,29 @@
+%mode song
+
+# Song
+%background color #f86253
+
+## Verse
+
+hello world
+
+## Chorus
+
+foo bar baz
+
+%mode slides
+
+#! Hello
+%background color #18727b
+
+Hello world!
+
+* This is a bullet point
+* This is another bullet point
+
+**This is bolded text**
+
+#! lol
+%layout image https://scontent-dfw1-1.xx.fbcdn.net/hphotos-xpt1/v/t1.0-9/11350645_705957842867405_2685739812353386393_n.jpg?oh=bac64329ea60e48f5a7f210754d907e1&oe=5632F86B
+
+ayy lmao top kek

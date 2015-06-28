@@ -65,7 +65,7 @@ var ArgumentParser = (function (ArgumentParser) {
 	ArgumentParser.getNormalizedPath = function (dir, filename) {
 		if (filename[0] === '$')
 			return path.resolve(process.cwd(), filename.substring(1));
-		else if (path.isAbsolute(filename))
+		else if (path.isAbsolute(filename) || filename.indexOf('http') === 0)
 			return filename;
 		else
 			return path.resolve(dir, filename);
