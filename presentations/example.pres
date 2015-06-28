@@ -1,15 +1,130 @@
 %mode song
 
-# Song
-%background color #f86253
+# Enough To Let Me Go
+%background video $backgrounds/LightStreaksDeepBlue.mp4
 
-## Verse
+## Verse 1a
 
-hello world
+Oh, I'm a wandering soul
+I'm still walking the line
+That leads me home alone
+
+## Verse 1b
+
+All I know
+I still got mountain to climb
+On my own, on my own
 
 ## Chorus
 
-foo bar baz
+Do you love me enough to let me go?
+To let me follow through
+To let me fall for you
+Do you love me enough to let me go?
+
+## Verse 2a
+
+Back from the dead of winter
+Back from the dead and all our leaves are dry
+You're so beautiful, tonight
+
+## Verse 2b
+
+Back from the dead we went through
+Back from the dead and both our tongues are tied
+You look beautiful tonight
+
+## Prechorus
+
+But every seed dies before it grows
+
+## Bridge
+
+Breathe it in and let it go
+Every breath you take is not your to own
+It's not your to hold
+Do you love me enough to let me go?
+
+# Fall Afresh
+%background video $backgrounds/4kBlueSwirls.mp4
+
+## Verse 1
+
+Awaken my soul, come awake
+To hunger, to seek, to thirst
+Awaken first love, come awake
+And do as you did, at first
+
+## Chorus
+
+Spirit of the living God come fall afresh on me
+Come wake me from my sleep
+Blow through the caverns of my soul, pour in me to overflow
+To overflow
+
+## Verse 2
+
+Awaken my soul, come awake
+To worship with all your strength
+
+## Bridge
+
+Come and fill this place
+Let Your glory now invade
+Spirit come and fill this place
+Let Your glory now invade
+
+# At The Cross
+%background video $backgrounds/HillOfTheCross.mp4
+
+## Verse 1a
+
+Oh Lord You've searched me
+You know my way
+Even when I fail You
+I know You love me
+
+## Verse 1b
+
+Your holy presence
+Surrounding me
+In every season
+I know You love me
+I know You love me
+
+## Chorus
+
+At the cross I bow my knee
+Where Your blood was shed for me
+There's no greater love than this
+You have overcome the grave
+Your glory fills the highest place
+What can separate me now
+
+## Verse 2
+
+You go before me
+You shield my way
+Your hand upholds me
+I know You love me
+
+## Bridge 1
+
+You tore the veil
+You made a way
+When You said that it is done
+
+You tore the veil
+You made a way
+When You said that it is done
+
+## Bridge 2
+
+And when the earth fades
+Falls from my eyes
+And You stand before me
+I know You love me
+I know You love me
 
 %mode slides
 
