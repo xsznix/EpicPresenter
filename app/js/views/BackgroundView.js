@@ -44,6 +44,7 @@ var BackgroundView = Backbone.View.extend({
 	},
 
 	renderVideo: function () {
+		if (!this.animate) return;
 		// TODO
 		var video = document.createElement('video');
 
@@ -69,12 +70,21 @@ var BackgroundView = Backbone.View.extend({
 	},
 
 	fadeIn: function () {
-		if (this.animate)
-			this.$el.stop().fadeIn({
+		var $el = this.$el;
+
+		var fade = function () {
+			$el.stop().fadeIn({
 				duration: Const.FADE_TIME,
 				easing: Const.FADE_IN_EASE
 			});
-		else
+		};
+
+		if (this.animate) {
+			if (this.video && this.video.readyState !== 4)
+				this.video.addEventListener('canplay', fade);
+			else
+				fade();
+		} else
 			this.$el.show();
 	},
 

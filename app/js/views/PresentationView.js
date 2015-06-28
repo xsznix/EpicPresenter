@@ -25,7 +25,7 @@ var PresentationView = Backbone.View.extend({
 		this.currentBackground.fadeIn();
 		
 		if (oldBackground)
-			setTimeout(function () { oldBackground.remove() }, Const.FADE_TIME);
+			setTimeout(function () { oldBackground.remove() }, this.isRoot ? Const.FADE_TIME * 2 : 0);
 	},
 
 	setForeground: function (model) {
