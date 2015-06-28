@@ -1,6 +1,20 @@
 {
 	"name": "epic-presenter",
+	"version": "1.0.0",
+	"description": "Epic Presenter",
+	"author": "Xuming Zeng <xsznix@gmail.com>",
 	"main": "app/index.html",
+
+	"dependencies": {
+		"backbone": "1.2.x",
+		"font-awesome": "4.3.x",
+		"jquery": "2.1.x",
+		"jquery.easing": "1.3.x",
+		"markdown": "0.5.x",
+		"underscore": "1.8.x"
+	},
+
+	"private": true,
 
 	"window": {
 		"toolbar": false,
