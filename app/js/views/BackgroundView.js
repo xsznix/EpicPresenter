@@ -70,7 +70,10 @@ var BackgroundView = Backbone.View.extend({
 
 	fadeIn: function () {
 		if (this.animate)
-			this.$el.stop().fadeIn(Const.FADE_TIME);
+			this.$el.stop().fadeIn({
+				duration: Const.FADE_TIME,
+				easing: Const.FADE_IN_EASE
+			});
 		else
 			this.$el.show();
 	},

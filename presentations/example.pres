@@ -13,7 +13,7 @@ foo bar baz
 
 %mode slides
 
-#! Hello
+# Hello
 %background color #18727b
 
 Hello world!

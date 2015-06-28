@@ -1,20 +1,20 @@
 :host {
-	padding: 2vw 4vw;
+	padding: 2vw 5vh;
 }
 
 header {
-	margin: 5vw 0;
+	margin: 5vh 0;
 
 	color: #fff;
 
 	font-family: 'Helvetica Neue', 'Helvetica';
 	font-weight: bold;
-	font-size: 7vw;
+	font-size: 8vh;
 }
 
 /* text */
 
-.song pre, p, li, th, td {
+.song pre, p, li, th, td, header, h1, h2, h3, h4, h5, h6 {
 	color: #fff;
 	text-shadow: 0 .5vw 2vw rgba(0,0,0,0.5);
 }
@@ -28,7 +28,7 @@ header {
 
 div, span, p, li, th, td {
 	font-family: 'Helvetica Neue', 'Helvetica';
-	font-size: 4vw;
+	font-size: 5vh;
 }
 
 pre {
@@ -37,7 +37,7 @@ pre {
 }
 
 ul, ol {
-	-webkit-padding-start: 7vw;
+	-webkit-padding-start: 7vh;
 }
 
 /* media */
@@ -46,7 +46,7 @@ ul, ol {
 	top: 0;
 	left: 0;
 	right: 0;
-	bottom: 15vw;
+	bottom: 15vh;
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
@@ -64,7 +64,7 @@ ul, ol {
 
 .caption {
 	position: fixed;
-	top: 60vw;
+	top: 82vh;
 	left: 0;
 	right: 0;
 	bottom: 0;
