@@ -72,3 +72,12 @@ ul, ol {
 	text-align: center;
 	font-weight: bold;
 }
+
+iframe.custom {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border: 0;
+}

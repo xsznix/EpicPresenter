@@ -10,7 +10,8 @@ var EpicFileReader = (function (EpicFileReader, undefined) {
 	EpicFileReader.layout = {
 		TEXT: 0,
 		IMAGE: 1,
-		VIDEO: 2
+		VIDEO: 2,
+		CUSTOM: 3
 	}
 
 	// Load from file
@@ -256,6 +257,11 @@ var EpicFileReader = (function (EpicFileReader, undefined) {
 
 			case 'video':
 			slide.layout = EpicFileReader.layout.VIDEO;
+			slide.media = args[1];
+			break;
+
+			case 'custom':
+			slide.layout = EpicFileReader.layout.CUSTOM;
 			slide.media = args[1];
 			break;
 		}

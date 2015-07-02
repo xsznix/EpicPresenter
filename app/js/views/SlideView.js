@@ -35,6 +35,10 @@ var SlideView = Backbone.View.extend({
 
 			case EpicFileReader.layout.VIDEO:
 			this.renderVideo(content);
+			break;
+
+			case EpicFileReader.layout.CUSTOM:
+			this.renderCustom(content);
 		}
 
 		if (this.model.get('type') === EpicFileReader.type.SONG)
@@ -67,6 +71,8 @@ var SlideView = Backbone.View.extend({
 	},
 
 	renderVideo: function (content) {
+		if (!this.animate) return;
+
 		this.boundResizeVideo = this.resizeVideo.bind(this);
 		var mediaElement = document.createElement('video');
 		mediaElement.className = 'media';
@@ -87,11 +93,29 @@ var SlideView = Backbone.View.extend({
 		content.appendChild(mediaElement);
 	},
 
+	renderCustom: function (content) {
+		if (!this.animate) return;
+
+		var iframe = document.createElement('iframe');
+		iframe.src = this.model.get('media');
+		iframe.className = 'custom';
+		iframe.setAttribute('frameborder', '0');
+		content.appendChild(iframe);
+
+		this.frame = iframe;
+	},
+
 	fadeIn: function () {
 		if (this.animate) {
 			this.$el.stop().fadeIn({
 				duration: Const.FADE_TIME,
-				easing: Const.FADE_IN_EASE
+				easing: Const.FADE_IN_EASE,
+				complete: function() {
+					console.log('faded in');
+					console.log(this.frame);
+					if (this.frame && this.frame.contentWindow && this.frame.contentWindow.start)
+						this.frame.contentWindow.start();
+				}.bind(this)
 			});
 
 			if (this.paused)
@@ -104,13 +128,17 @@ var SlideView = Backbone.View.extend({
 		if (this.animate) {
 			this.$el.stop().fadeOut({
 				duration: Const.FADE_TIME,
-				easing: Const.FADE_OUT_EASE
+				easing: Const.FADE_OUT_EASE,
+				complete: function () {
+					if (this.video) {
+						this.paused = true;
+						this.video.pause();
+					} else if (this.frame && this.frame.contentWindow && this.frame.contentWindow.pause) {
+						this.frame.contentWindow.pause();
+					}
+				}
 			});
 
-			if (this.video) {
-				this.paused = true;
-				this.video.pause();
-			}
 		} else
 			this.$el.hide();
 	},

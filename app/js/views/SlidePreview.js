@@ -34,11 +34,15 @@ var SlidePreview = Backbone.View.extend({
 
 		// The background view doesn't need any viewport size magic, so just add
 		// it directly.
-		var background = new BackgroundView({
-			model: global.assets.getBackground(this.model.get('background')),
-			animate: false
-		})
-		background.$el.prependTo(this.$el);
+		var backgroundModel = global.assets.getBackground(this.model.get('background'));
+		if (backgroundModel.get('type') !== 'video') {
+			var background = new BackgroundView({
+				model: backgroundModel,
+				animate: false
+			})
+			background.$el.prependTo(this.$el);
+		}
+
 		this.$('.content').attr('srcdoc', slide.el.shadowRoot.innerHTML);
 	},
 
