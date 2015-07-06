@@ -44,15 +44,15 @@ var BackgroundView = Backbone.View.extend({
 	},
 
 	renderVideo: function () {
-		if (!this.animate) return;
-		// TODO
-		var video = document.createElement('video');
-
-		if (this.animate) {
-			video.setAttribute('autoplay', '');
-			video.setAttribute('loop', '');
+		if (!this.animate) {
+			this.$el.css('backgroundColor', '#000');
+			return;
 		}
 
+		var video = document.createElement('video');
+
+		video.setAttribute('autoplay', '');
+		video.setAttribute('loop', '');
 		video.setAttribute('src', this.model.get('url'));
 		video.setAttribute('muted', '');
 

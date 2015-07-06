@@ -5,6 +5,7 @@ var ControllerView = Backbone.View.extend({
 
 	initialize: function () {
 		$(document).keydown(this.handleKey.bind(this));
+		$('#filedialog').attr('nwworkingdir', process.cwd() + '/presentations');
 		this.render();
 	},
 
@@ -18,6 +19,7 @@ var ControllerView = Backbone.View.extend({
 		'click #prev': 'goPrevious',
 		'click #next': 'goNext',
 		'click #open': 'showFileDialog',
+		'click #reload': 'reloadCurrentFile',
 		'click #exit': 'exit',
 		'change #filedialog': 'chooseFile',
 		'click #debug-controller': 'showMyDevTools',
@@ -36,8 +38,6 @@ var ControllerView = Backbone.View.extend({
 		this.blanked = false;
 
 		global.events.trigger('file:open');
-
-		this.goSlide(0);
 	},
 
 	useSlides: function (slides) {
@@ -115,7 +115,14 @@ var ControllerView = Backbone.View.extend({
 	},
 
 	chooseFile: function (e) {
-		this.openFile(this.$('#filedialog').val());
+		this.currentFile = this.$('#filedialog').val();
+		this.openFile(this.currentFile);
+		this.goSlide(0);
+	},
+
+	reloadCurrentFile: function () {
+		if (this.currentFile)
+			this.openFile(this.currentFile);
 	},
 
 	showMyDevTools: function () {

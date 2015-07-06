@@ -3,9 +3,9 @@ html, body {
 	overflow: hidden;
 	-webkit-user-select: none;
 
-	font-family: Helvetica, Arial, sans-serif;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
-	background: #222;
+	background: #181818;
 	color: #fff;
 }
 
@@ -31,23 +31,27 @@ main {
 
 header {
 	display: flex;
-	height: 48px;
-	padding: 0 16px;
+	height: 30px;
 
 	background: #333;
 	color: #aaa;
 }
 
-header h1 {
-	margin-right: 48px;
-	font-size: 24px;
-	font-weight: 300;
+header .fa {
+	margin-right: 6px;
+}
+
+#logo {
+	margin-right: 2px;
+	height: 30px;
+	width: 30px;
 }
 
 header button {
-	padding: 6px 12px 0 12px;
+	padding: 0 12px;
 
-	font-weight: 300;
+	font-size: 14px;
+	font-weight: 400;
 }
 
 header button:hover {
@@ -65,14 +69,18 @@ header #filedialog {
 
 #slides {
 	flex: 1 1;
-
 	overflow-y: scroll;
+	padding-bottom: 16px;
+
+	box-shadow: inset -2px 2px 4px #111;
 }
 
 #sidebar {
 	display: flex;
 	flex-direction: column;
 	width: 480px;
+
+	background: #222;
 }
 
 #controls {
@@ -101,10 +109,6 @@ header #filedialog {
 	font-size: 32px;
 }
 
-#slides {
-	box-shadow: inset -2px 2px 2px #181818;
-}
-
 #slides section {
 	display: flex;
 	flex-wrap: wrap;
@@ -120,8 +124,8 @@ header #filedialog {
 
 #slides section > div {
 	position: relative;
-	height: 120px;
-	width: 160px;
+	height: 180px;
+	width: 240px;
 
 	margin: 8px 8px 24px 8px;
 	border: 1px solid #333;
@@ -164,10 +168,16 @@ header #filedialog {
 
 #slides section .meta {
 	display: flex;
-	margin-top: 4px;
-	font-size: 12px;
+	margin-top: 2px;
+	margin-bottom: 4px;
+	font-size: 14px;
+	font-weight: 700;
 	color: #aaa;
 	overflow: hidden;
+}
+
+#slides section > .highlighted .meta {
+	color: #2980b9;
 }
 
 #slides .title {
@@ -187,4 +197,8 @@ header #filedialog {
 	transform: translateX(50%) translateY(50%);
 	min-width: 100%;
 	min-height: 100%;
+}
+
+.spacer {
+	flex: 1 1;
 }
