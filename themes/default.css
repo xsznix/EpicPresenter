@@ -27,14 +27,16 @@ pre {
 .song pre {
 	font-family: 'Helvetica Neue', 'Helvetica';
 	font-weight: bold;
-	font-size: 4.5vw;
+	font-size: 4.2vw;
 	text-align: center;
 	line-height: 150%;
+	letter-spacing: 0.12vh;
 }
 
 div, span, p, li, th, td {
 	font-family: 'Helvetica Neue', 'Helvetica';
 	font-size: 5vh;
+	letter-spacing: 0.05vw;
 }
 
 ul, ol {
