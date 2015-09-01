@@ -21,6 +21,9 @@ var ControllerView = Backbone.View.extend({
 		'click #open': 'showFileDialog',
 		'click #reload': 'reloadCurrentFile',
 		'click #exit': 'exit',
+		'click #play': 'playVideo',
+		'click #pause': 'pauseVideo',
+		'click #restart': 'restartVideo',
 		'change #filedialog': 'chooseFile',
 		'click #debug-controller': 'showMyDevTools',
 		'click #debug-presentation': 'showPresentationDevTools'

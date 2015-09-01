@@ -75,19 +75,17 @@ var SlideView = Backbone.View.extend({
 
 		this.boundResizeVideo = this.resizeVideo.bind(this);
 		var mediaElement = document.createElement('video');
-		mediaElement.className = 'media';
+		mediaElement.className = 'media video';
 		mediaElement.setAttribute('src', this.model.get('media'));
+		mediaElement.setAttribute('controls', 'controls');
 		mediaElement.addEventListener('loadedmetadata', this.boundResizeVideo);
 
-		if (this.animate) {
-			window.addEventListener('resize', this.boundResizeVideo);
-		}
+		window.addEventListener('resize', this.boundResizeVideo);
 
 		this.video = mediaElement;
 
-		var video = this.video;
 		setTimeout(function () {
-			video.play();
+			mediaElement.play();
 		}, Const.FADE_TIME);
 
 		content.appendChild(mediaElement);
@@ -165,7 +163,7 @@ var SlideView = Backbone.View.extend({
 	},
 
 	resizeVideo: function () {
-		var h = this.$el.height(), w = this.$el.width();
+		var h = this.$el.parent().height(), w = this.$el.parent().width();
 		var clientAspectRatio = h / w;
 		var videoAspectRatio = this.video.videoHeight / this.video.videoWidth;
 

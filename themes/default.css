@@ -65,6 +65,10 @@ ul, ol {
 	left: 0;
 }
 
+.media.video:not(:hover)::-webkit-media-controls-panel {
+	display: none;
+}
+
 .caption {
 	position: fixed;
 	top: 82vh;

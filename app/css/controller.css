@@ -83,14 +83,14 @@ header #filedialog {
 	background: #222;
 }
 
-#controls {
+.controls {
 	display: flex;
 	justify-content: center;
 
 	color: #888;
 }
 
-#controls button {
+.controls button {
 	width: 80px;
 	padding: 16px 0;
 
@@ -98,11 +98,11 @@ header #filedialog {
 	font-size: 14px;
 }
 
-#controls button:hover {
+.controls button:hover {
 	background: rgba(255,255,255,0.05);
 }
 
-#controls button i {
+.controls button i {
 	display: block;
 	margin-bottom: 6px;
 
