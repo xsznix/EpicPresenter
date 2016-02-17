@@ -1,0 +1,12 @@
+header {
+	position: absolute;
+	top: 50%;
+	width: 100%;
+	transform: translateY(-50%);
+
+	color: #fff;
+	text-align: center;
+	font-family: 'Avenir Next';
+	font-weight: 100;
+	font-size: 8vw;
+}

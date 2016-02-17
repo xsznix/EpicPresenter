@@ -1,0 +1,25 @@
+header {
+	margin-top: 25%;
+	margin-bottom: 0;
+	width: 100%;
+
+	color: #fff;
+	text-align: center;
+	font-family: 'Brush Script MT';
+	font-weight: 100;
+	font-size: 12vw;
+
+	text-shadow: 0 0 5vw #000;
+}
+
+div, span, p, li, th, td {
+	color: #fff;
+	font-family: 'Brush Script MT';
+	font-size: 7vh;
+	letter-spacing: 0.05vw;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+
+	text-shadow: 0 0 5vw #000;
+}

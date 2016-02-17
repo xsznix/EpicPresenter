@@ -7,16 +7,18 @@ header {
 
 	color: #fff;
 
-	font-family: 'Helvetica Neue', 'Helvetica';
-	font-weight: bold;
-	font-size: 8vh;
+	text-align: center;
+
+	font-family: 'Avenir Next', 'Helvetica Neue', 'Helvetica';
+	font-weight: 400;
+	font-size: 10vh;
 }
 
 /* text */
 
 .song pre, p, li, th, td, header, h1, h2, h3, h4, h5, h6 {
 	color: #fff;
-	text-shadow: 0 .5vw 2vw rgba(0,0,0,0.5);
+	text-shadow: 0 .3vw 1.4vw rgba(0,0,0,0.9);
 }
 
 pre {
@@ -24,19 +26,33 @@ pre {
 	white-space: pre-wrap;
 }
 
+.song {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
 .song pre {
 	font-family: 'Helvetica Neue', 'Helvetica';
 	font-weight: bold;
-	font-size: 4.2vw;
+	font-size: 4.5vw;
 	text-align: center;
 	line-height: 150%;
 	letter-spacing: 0.12vh;
 }
 
 div, span, p, li, th, td {
-	font-family: 'Helvetica Neue', 'Helvetica';
+	font-family: 'Avenir Next', 'Helvetica Neue', 'Helvetica';
 	font-size: 5vh;
 	letter-spacing: 0.05vw;
+	line-height: 130%;
+	margin-bottom: 1.5vh;
 }
 
 ul, ol {
@@ -65,7 +81,6 @@ ul, ol {
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
-
 .media.video:not(:hover)::-webkit-media-controls-panel {
 	display: none;
 }
