@@ -56,7 +56,7 @@ var SlideView = Backbone.View.extend({
 
 	renderImage: function (content) {
 		var mediaElement = document.createElement('div');
-		mediaElement.style.backgroundImage = 'url(' + this.model.get('media') + ')';
+		mediaElement.style.backgroundImage = 'url("' + this.model.get('media').replace(/"/g, '\\"').replace(/\\\\/g, '\\\\') + '")';
 		mediaElement.className = 'media image';
 		content.appendChild(mediaElement);
 		var caption = this.model.get('content'), captionElement;
@@ -143,7 +143,7 @@ var SlideView = Backbone.View.extend({
 
 	fadeOutAndRemove: function () {
 		if (this.animate)
-			this.$el.stop().fadeOut({
+			this.$el.stop().delay(140).fadeOut({
 				duration: Const.FADE_TIME,
 				easing: Const.FADE_OUT_EASE,
 				complete: function () {

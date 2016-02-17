@@ -51,7 +51,8 @@ var ControllerView = Backbone.View.extend({
 			if (slide.type === EpicFileReader.type.SONG) {
 				songs.push({
 					slide: models.length,
-					title: slide.title
+					title: slide.title,
+					notes: slide.notes
 				});
 				slide.content.forEach(function (songSlide) {
 					models.push(SlideModel.fromSongSlide(slide, songSlide));

@@ -29,7 +29,8 @@ var SlideListView = Backbone.View.extend({
 			if (i === nextSongSlideIndex) {
 				currentMode = EpicFileReader.type.SONG;
 
-				var title = global.songs[nextSongIndex++].title;
+				var song = global.songs[nextSongIndex++];
+				var title = song.title;
 
 				if (nextSongIndex < global.songs.length)
 					nextSongSlideIndex = global.songs[nextSongIndex].slide;
@@ -39,7 +40,8 @@ var SlideListView = Backbone.View.extend({
 				if (currentSection) pushCurrentSection();
 				currentSection = {
 					title: title,
-					slides: [] };
+					slides: [],
+					notes: song.notes };
 			} else if (currentMode === EpicFileReader.type.SONG &&
 				global.slides[i].get('type') === EpicFileReader.type.SLIDE) {
 				currentMode = EpicFileReader.type.SLIDE;
@@ -72,7 +74,7 @@ var SlideListView = Backbone.View.extend({
 		}
 
 		function newSection () {
-			return { title: '', slides: [] }
+			return { title: '', slides: [], notes: '' }
 		}
 	},
 

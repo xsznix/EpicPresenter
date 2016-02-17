@@ -67,6 +67,7 @@ var EpicFileReader = (function (EpicFileReader, undefined) {
 	 *     contents:
 	 *         string in slides mode, parsed through Markdown
 	 *         song slide array in song mode
+	 *     notes: string, only in song mode
 	 *     background: number
 	 *     theme: number
 	 *
@@ -314,6 +315,23 @@ var EpicFileReader = (function (EpicFileReader, undefined) {
 	function parseSongContent (lines, slide, parseState) {
 		var nextLine;
 		slide.content = [];
+		slide.notes = [];
+
+		for (;;) {
+			if (parseState.nextLineIndex >= lines.length)
+				return;
+
+			nextLine = lines[parseState.nextLineIndex++];
+
+			if (nextLine[0] === '#' || nextLine[0] === '%') {
+				parseState.nextLineIndex--;
+				break;
+			} else {
+				slide.notes.push(nextLine);
+			}
+		}
+
+		slide.notes = slide.notes.join('\n').trim();
 
 		for (;;) {
 			var currentSlide = {};
@@ -415,3 +433,4 @@ var EpicFileReader = (function (EpicFileReader, undefined) {
 	return EpicFileReader;
 
 })(EpicFileReader || {});
+ 

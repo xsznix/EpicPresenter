@@ -114,6 +114,16 @@ header #filedialog {
 	flex-wrap: wrap;
 }
 
+#slides .notes {
+	width: 100%;
+	padding: 0 20px;
+	box-sizing: border-box;
+	color: #aaa;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-style: italic;
+	word-wrap: break-word;
+}
+
 #slides > div > h2 {
 	margin-bottom: 8px;
 	padding-left: 24px;
